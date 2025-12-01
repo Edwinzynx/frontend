@@ -1,0 +1,36 @@
+
+> attendance-system@0.1.0 lint
+> eslint
+
+
+C:\Users\edwin\.gemini\antigravity\scratch\smartpresence\frontend\app\api\cv\process\route.ts
+  3:28  warning  'request' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\edwin\.gemini\antigravity\scratch\smartpresence\frontend\components\faculty\UploadArea.tsx
+   4:38  warning  'Loader2' is defined but never used  @typescript-eslint/no-unused-vars
+  61:18  warning  'error' is defined but never used    @typescript-eslint/no-unused-vars
+
+C:\Users\edwin\.gemini\antigravity\scratch\smartpresence\frontend\components\layout\Navbar.tsx
+  23:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\edwin\.gemini\antigravity\scratch\smartpresence\frontend\components\layout\Navbar.tsx:23:13
+  21 |     useEffect(() => {
+  22 |         if (user?.role === 'Faculty') {
+> 23 |             setNotifications([
+     |             ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  24 |                 { id: '1', message: 'Weekly attendance report generated.', time: '10 mins ago', read: false },
+  25 |                 { id: '2', message: 'System maintenance scheduled for tonight.', time: '2 hours ago', read: true },
+  26 |                 { id: '3', message: 'Low attendance alert: 3 students below 75%.', time: '1 day ago', read: false },  react-hooks/set-state-in-effect
+
+C:\Users\edwin\.gemini\antigravity\scratch\smartpresence\frontend\components\ui\NotificationsPopover.tsx
+  4:16  warning  'Check' is defined but never used   @typescript-eslint/no-unused-vars
+  5:10  warning  'Button' is defined but never used  @typescript-eslint/no-unused-vars
+
+Ô£û 6 problems (1 error, 5 warnings)
+

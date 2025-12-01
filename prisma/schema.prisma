@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  email     String   @id
+  password  String
+  name      String?
+  role      String   @default("STUDENT")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  studentProfile Student?
+}
+
+model Student {
+  id        String   @id @default(cuid())
+  
+  // Relation to User (One-to-One)
+  userEmail String   @unique
+  user      User     @relation(fields: [userEmail], references: [email])
+  
+  // Student Details
+  name      String
+  rollNo    String   @unique
+  section   String
+  course    String
+  semester  String
+  shapeId   String   // For visual representation (e.g., 'Circle', 'Square')
+  phoneNo   String
+  
+  attendance Attendance[]
+}
+
+model Attendance {
+  id        String   @id @default(cuid())
+  date      DateTime
+  status    String
+  subject   String?
+  timeSlot  String?
+  
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

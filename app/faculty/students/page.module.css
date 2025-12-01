@@ -1,0 +1,65 @@
+.grid {
+    display: flex;
+    flex-direction: column;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.studentRow {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    gap: 1rem;
+    transition: background-color 0.2s;
+}
+
+.studentRow:hover {
+    background-color: #f9fafb;
+}
+
+.link:last-child .studentRow {
+    border-bottom: none;
+}
+
+.avatarWrapper {
+    width: 48px;
+    height: 48px;
+    background-color: #f3f4f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info {
+    flex: 1;
+}
+
+.name {
+    font-weight: 500;
+    color: #111827;
+    margin: 0;
+}
+
+.detail {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.meta {
+    text-align: right;
+}
+
+.section {
+    font-size: 0.875rem;
+    color: #6b7280;
+    background-color: #f3f4f6;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+}

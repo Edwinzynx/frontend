@@ -1,0 +1,39 @@
+
+> attendance-system@0.1.0 build
+> next build
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ÔÜá Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\edwin\.gemini\antigravity\scratch\smartpresence\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\edwin\.gemini\antigravity\scratch\smartpresence\frontend\package-lock.json
+
+   Ôû▓ Next.js 16.0.5 (Turbopack)
+   - Environments: .env
+
+ ÔÜá The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+   Creating an optimized production build ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ Ô£ô Compiled successfully in 7.8s
+   Running TypeScript ...
+Failed to compile.
+
+./auth.ts:8:5
+Type error: Type 'import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/@auth/prisma-adapter/node_modules/@auth/core/adapters").Adapter' is not assignable to type 'import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/next-auth/adapters").Adapter'.
+  Types of property 'getUser' are incompatible.
+    Type '((id: string) => import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/@auth/prisma-adapter/node_modules/@auth/core/types").Awaitable<import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/@auth/prisma-adapter/node_modules/@auth/core/adapters").Adapter...' is not assignable to type '((id: string) => import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/next-auth/core/types").Awaitable<import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/next-auth/adapters").AdapterUser | null>) | undefined'.
+      Type '(id: string) => import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/@auth/prisma-adapter/node_modules/@auth/core/types").Awaitable<import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/@auth/prisma-adapter/node_modules/@auth/core/adapters").AdapterU...' is not assignable to type '(id: string) => import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/next-auth/core/types").Awaitable<import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/next-auth/adapters").AdapterUser | null>'.
+        Type 'import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/@auth/prisma-adapter/node_modules/@auth/core/types").Awaitable<import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/@auth/prisma-adapter/node_modules/@auth/core/adapters").AdapterUser | null>' is not assignable to type 'import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/next-auth/core/types").Awaitable<import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/next-auth/adapters").AdapterUser | null>'.
+          Type 'AdapterUser' is not assignable to type 'Awaitable<AdapterUser | null>'.
+            Property 'role' is missing in type 'import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/@auth/prisma-adapter/node_modules/@auth/core/adapters").AdapterUser' but required in type 'import("C:/Users/edwin/.gemini/antigravity/scratch/smartpresence/frontend/node_modules/next-auth/adapters").AdapterUser'.
+
+   6 |
+   7 | export const authOptions: NextAuthOptions = {
+>  8 |     adapter: PrismaAdapter(prisma),
+     |     ^
+   9 |     providers: [
+  10 |         CredentialsProvider({
+  11 |             name: "Credentials",
+Next.js build worker exited with code: 1 and signal: null

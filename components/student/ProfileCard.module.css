@@ -1,0 +1,58 @@
+.card {
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.avatarWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--muted);
+    border-radius: 50%;
+    padding: 0.5rem;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.detail {
+    color: var(--text-secondary);
+    margin: 0.25rem 0 0 0;
+}
+
+.stats {
+    padding: 1rem 1.5rem;
+    background-color: var(--muted);
+}
+
+.statItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.statLabel {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.statValue {
+    font-weight: 500;
+    color: var(--text-primary);
+}
