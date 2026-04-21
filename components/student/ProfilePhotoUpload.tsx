@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+const CV_BACKEND_URL = process.env.NEXT_PUBLIC_CV_BACKEND_URL || 'http://localhost:8000';
+
 export default function ProfilePhotoUpload({ studentId }: { studentId: string }) {
     const [uploading, setUploading] = useState(false);
     const [message, setMessage] = useState('');
@@ -15,7 +17,7 @@ export default function ProfilePhotoUpload({ studentId }: { studentId: string })
         formData.append('student_id', studentId);
 
         try {
-            const res = await fetch('http://localhost:8000/register', {
+            const res = await fetch(`${CV_BACKEND_URL}/register`, {
                 method: 'POST',
                 body: formData,
             });

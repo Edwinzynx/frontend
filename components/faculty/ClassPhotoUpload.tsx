@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/Card';
 
+const CV_BACKEND_URL = process.env.NEXT_PUBLIC_CV_BACKEND_URL || 'http://localhost:8000';
+
 export default function ClassPhotoUpload() {
     const [uploading, setUploading] = useState(false);
     const [result, setResult] = useState<string[] | null>(null);
@@ -17,7 +19,7 @@ export default function ClassPhotoUpload() {
         });
 
         try {
-            const res = await fetch('http://localhost:8000/mark-attendance', {
+            const res = await fetch(`${CV_BACKEND_URL}/mark-attendance`, {
                 method: 'POST',
                 body: formData,
             });
