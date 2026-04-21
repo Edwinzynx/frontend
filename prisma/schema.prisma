@@ -32,7 +32,6 @@ model Student {
   section   String
   course    String
   semester  String
-  shapeId   String   // For visual representation (e.g., 'Circle', 'Square')
   phoneNo   String
   
   attendance Attendance[]

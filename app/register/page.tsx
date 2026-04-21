@@ -20,7 +20,6 @@ export default function RegisterPage() {
         section: '',
         course: '',
         semester: '',
-        shapeId: 'Circle',
         phoneNo: '',
     });
 
@@ -176,21 +175,6 @@ export default function RegisterPage() {
                                     onChange={(e) => setFormData({ ...formData, phoneNo: e.target.value })}
                                     required
                                 />
-                            </div>
-                            <div className={styles.inputGroup}>
-                                <label htmlFor="shapeId" className={styles.label}>Visual Shape</label>
-                                <select
-                                    id="shapeId"
-                                    className={styles.input}
-                                    value={formData.shapeId}
-                                    onChange={(e) => setFormData({ ...formData, shapeId: e.target.value })}
-                                >
-                                    <option value="Circle">Circle</option>
-                                    <option value="Square">Square</option>
-                                    <option value="Triangle">Triangle</option>
-                                    <option value="Pentagon">Pentagon</option>
-                                    <option value="Hexagon">Hexagon</option>
-                                </select>
                             </div>
                         </>
                     )}

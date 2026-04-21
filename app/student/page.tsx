@@ -3,6 +3,7 @@ import { authOptions } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
 import ProfileCard from '@/components/student/ProfileCard';
+import ProfilePhotoUpload from '@/components/student/ProfilePhotoUpload';
 import AttendanceStats from '@/components/student/AttendanceStats';
 import styles from './page.module.css';
 
@@ -34,6 +35,7 @@ export default async function StudentDashboard() {
             <div className={styles.grid}>
                 <div className={styles.column}>
                     <ProfileCard student={student} />
+                    <ProfilePhotoUpload studentId={student.id} />
                 </div>
 
                 <div className={styles.column}>

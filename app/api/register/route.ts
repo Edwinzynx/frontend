@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { email, password, role, name, rollNo, section, course, semester, shapeId, phoneNo } = body;
+        const { email, password, role, name, rollNo, section, course, semester, phoneNo } = body;
 
         if (!email || !password || !role) {
             return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
@@ -37,7 +37,6 @@ export async function POST(req: Request) {
                         section: section || '',
                         course: course || '',
                         semester: semester || '',
-                        shapeId: shapeId || 'Circle', // Default shape
                         phoneNo: phoneNo || '',
                     }
                 } : undefined
