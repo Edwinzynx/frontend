@@ -3,9 +3,10 @@ import ProfileCard from '@/components/student/ProfileCard';
 import { Card } from '@/components/ui/Card';
 import styles from './page.module.css';
 
-export default async function StudentDetailPage({ params }: { params: { id: string } }) {
+export default async function StudentDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
     const student = await prisma.student.findUnique({
-        where: { id: params.id },
+        where: { id: id },
     });
 
     if (!student) return <div>Student not found</div>;

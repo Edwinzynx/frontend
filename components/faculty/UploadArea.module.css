@@ -7,23 +7,23 @@
 }
 
 .dropZone {
-    border: 2px dashed #e5e7eb;
+    border: 2px dashed var(--card-border);
     border-radius: 0.75rem;
     padding: 3rem 1.5rem;
     text-align: center;
     cursor: pointer;
     transition: all 0.2s;
-    background-color: #f9fafb;
+    background-color: var(--muted);
 }
 
 .dropZone:hover {
-    border-color: #3b82f6;
-    background-color: #eff6ff;
+    border-color: var(--primary);
+    background-color: var(--card-bg);
 }
 
 .dragging {
-    border-color: #3b82f6;
-    background-color: #eff6ff;
+    border-color: var(--primary);
+    background-color: var(--card-bg);
     transform: scale(1.01);
 }
 
@@ -41,28 +41,28 @@
 .iconWrapper {
     width: 48px;
     height: 48px;
-    background-color: #e5e7eb;
+    background-color: var(--card-border);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #6b7280;
+    color: var(--text-secondary);
 }
 
 .text {
     font-size: 1rem;
-    color: #374151;
+    color: var(--text-primary);
     margin: 0;
 }
 
 .highlight {
     font-weight: 600;
-    color: #3b82f6;
+    color: var(--primary);
 }
 
 .subtext {
     font-size: 0.875rem;
-    color: #9ca3af;
+    color: var(--text-secondary);
     margin: 0;
 }
 
@@ -71,8 +71,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem;
-    background-color: white;
-    border: 1px solid #e5e7eb;
+    background-color: var(--muted);
+    border: 1px solid var(--card-border);
     border-radius: 0.5rem;
 }
 

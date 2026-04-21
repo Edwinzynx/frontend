@@ -3,7 +3,6 @@ import { authOptions } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
 import { Card } from '@/components/ui/Card';
-import ClassPhotoUpload from '@/components/faculty/ClassPhotoUpload';
 import styles from './page.module.css';
 
 export default async function FacultyDashboard() {
@@ -65,8 +64,6 @@ export default async function FacultyDashboard() {
                         <span className={styles.label}>Students Absent</span>
                     </div>
                 </Card>
-
-                <ClassPhotoUpload />
             </div>
         </div>
     );

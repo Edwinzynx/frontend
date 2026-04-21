@@ -17,31 +17,36 @@
 
 /* Variants */
 .primary {
-    background-color: #3b82f6;
-    color: white;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: var(--shadow-sm);
 }
 
 .primary:hover:not(:disabled) {
-    background-color: #2563eb;
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
 }
 
 .secondary {
-    background-color: #f3f4f6;
-    color: #111827;
+    background-color: var(--muted);
+    color: var(--foreground);
 }
 
 .secondary:hover:not(:disabled) {
-    background-color: #e5e7eb;
+    filter: brightness(0.95);
+    transform: translateY(-1px);
 }
 
 .outline {
     background-color: transparent;
-    border-color: #d1d5db;
-    color: #374151;
+    border-color: var(--card-border);
+    color: var(--text-primary);
 }
 
 .outline:hover:not(:disabled) {
-    background-color: #f9fafb;
+    background-color: var(--muted);
+    transform: translateY(-1px);
 }
 
 .danger {
@@ -51,6 +56,7 @@
 
 .danger:hover:not(:disabled) {
     background-color: #dc2626;
+    transform: translateY(-1px);
 }
 
 .success {
@@ -60,6 +66,7 @@
 
 .success:hover:not(:disabled) {
     background-color: #059669;
+    transform: translateY(-1px);
 }
 
 /* Sizes */

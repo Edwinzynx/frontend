@@ -20,10 +20,10 @@
 
 .label {
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--text-secondary);
 }
 
 .value {
     font-weight: 500;
-    color: #111827;
+    color: var(--text-primary);
 }

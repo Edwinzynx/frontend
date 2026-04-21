@@ -15,7 +15,7 @@ export default function RegisterPage() {
         name: '',
         email: '',
         password: '',
-        role: 'student',
+        role: '',
         rollNo: '',
         section: '',
         course: '',
@@ -51,12 +51,16 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} ${styles.fadeIn}`}>
             <Card
-                title="Create Account"
-                description="Sign up for SmartPresence"
-                className={styles.card}
-            >
+                    title="Create Account"
+                    description={
+                        <div style={{ textAlign: 'center', width: '100%' }}>
+                            Sign up for SmartPresence
+                        </div>
+                    }
+                    className={styles.card}
+                >
                 <form onSubmit={handleSubmit} className={styles.form}>
                     {error && <div className="text-red-500 text-sm text-center">{error}</div>}
 
@@ -106,7 +110,9 @@ export default function RegisterPage() {
                             className={styles.input}
                             value={formData.role}
                             onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                            required
                         >
+                            <option value="" disabled>Select...</option>
                             <option value="student">Student</option>
                             <option value="faculty">Faculty</option>
                         </select>

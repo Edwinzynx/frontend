@@ -1,7 +1,8 @@
 .navbar {
     height: 64px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
+    background-color: transparent;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--card-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -14,7 +15,7 @@
 .title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #111827;
+    color: var(--text-primary);
     margin: 0;
 }
 
@@ -31,7 +32,7 @@
 .iconButton {
     background: none;
     border: none;
-    color: #6b7280;
+    color: var(--text-secondary);
     cursor: pointer;
     position: relative;
     padding: 0.5rem;
@@ -43,15 +44,15 @@
 }
 
 .iconButton:hover {
-    background-color: #f3f4f6;
-    color: #111827;
+    background-color: var(--muted);
+    color: var(--text-primary);
 }
 
 .badge {
     position: absolute;
     top: 0;
     right: 0;
-    background-color: #ef4444;
+    background-color: var(--accent-orange);
     color: white;
     font-size: 0.625rem;
     font-weight: 600;
@@ -69,18 +70,18 @@
     align-items: center;
     gap: 0.75rem;
     padding-left: 1.5rem;
-    border-left: 1px solid #e5e7eb;
+    border-left: 1px solid var(--card-border);
 }
 
 .avatar {
     width: 36px;
     height: 36px;
-    background-color: #e5e7eb;
+    background-color: var(--muted);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #4b5563;
+    color: var(--text-secondary);
 }
 
 .userInfo {
@@ -91,11 +92,11 @@
 .name {
     font-size: 0.875rem;
     font-weight: 500;
-    color: #111827;
+    color: var(--text-primary);
 }
 
 .role {
     font-size: 0.75rem;
-    color: #6b7280;
+    color: var(--text-secondary);
     text-transform: capitalize;
 }

@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f3f4f6;
+  background-color: var(--muted);
   padding: 2rem;
 }
 
@@ -16,12 +16,12 @@
 .title {
   font-size: 3rem;
   font-weight: 800;
-  color: #111827;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .accent {
-  color: #3b82f6;
+  color: var(--primary);
 }
 
 .subtitle {
@@ -59,14 +59,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #3b82f6;
+  color: var(--primary);
   margin-bottom: 1.5rem;
 }
 
 .roleTitle {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
   margin: 0 0 0.5rem 0;
 }
 

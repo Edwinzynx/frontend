@@ -19,11 +19,11 @@
 .percentage {
     font-size: 3rem;
     font-weight: 700;
-    color: #111827;
+    color: var(--text-primary);
 }
 
 .label {
-    color: #6b7280;
+    color: var(--text-secondary);
 }
 
 .alertBadge {
@@ -39,5 +39,5 @@
 .count {
     font-size: 2rem;
     font-weight: 600;
-    color: #111827;
+    color: var(--text-primary);
 }

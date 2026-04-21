@@ -1,36 +1,60 @@
 :root {
-  --background: #f3f4f6;
-  --foreground: #111827;
+  /* Light Mode Palette */
+  --background: #f8fafc;
+  --bg-overlay: rgba(248, 250, 252, 0.85);
+  --foreground: #0f172a;
 
   --card-bg: #ffffff;
-  --card-border: #e5e7eb;
+  --card-border: #f1f5f9;
 
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
 
-  --primary: #3b82f6;
+  --primary: var(--primary);
   --primary-foreground: #ffffff;
 
-  --muted: #f9fafb;
-  --muted-foreground: #6b7280;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  
+  /* Accent Colors */
+  --accent-teal: #0d9488;
+  --accent-purple: #7c3aed;
+  --accent-orange: #ea580c;
+  
+  /* Shadow Variables */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Dark Mode Palette (Premium Slate) */
+    --background: #15171e;
+    --bg-overlay: rgba(21, 23, 30, 0.85);
+    --foreground: #f8fafc;
 
-    --card-bg: #171717;
-    --card-border: #262626;
+    --card-bg: #1e212b;
+    --card-border: rgba(255, 255, 255, 0.05);
 
-    --text-primary: #ededed;
-    --text-secondary: #a1a1aa;
+    --text-primary: #f0f2f5;
+    --text-secondary: #94a3b8;
 
-    --primary: #3b82f6;
+    --primary: #0ea5e9;
     --primary-foreground: #ffffff;
 
-    --muted: #262626;
-    --muted-foreground: #a1a1aa;
+    --muted: #2a2d3a;
+    --muted-foreground: #94a3b8;
+    
+    /* Accent Colors (Neon/Glowing) */
+    --accent-teal: #2dd4bf;
+    --accent-purple: #a78bfa;
+    --accent-orange: #fb923c;
+    
+    /* Shadow Variables */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
   }
 }
 
@@ -43,9 +67,29 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
 }
 
 * {

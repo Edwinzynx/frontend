@@ -59,7 +59,7 @@ export default function Navbar({ title, user }: NavbarProps) {
 
     return (
         <header className={styles.navbar}>
-            <h1 className={styles.title}>{title}</h1>
+            <h1 className={styles.title}>Welcome {user?.name || ''}</h1>
 
             <div className={styles.actions}>
                 <div className={styles.notificationWrapper} ref={containerRef}>

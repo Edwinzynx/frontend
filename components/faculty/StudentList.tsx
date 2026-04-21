@@ -1,3 +1,6 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/Card';
 import styles from './StudentList.module.css';
 
@@ -16,6 +19,8 @@ interface StudentListProps {
 }
 
 export default function StudentList({ students }: StudentListProps) {
+    const router = useRouter();
+
     return (
         <Card title="Registered Students" className={styles.card}>
             <div className={styles.tableContainer}>
@@ -36,7 +41,12 @@ export default function StudentList({ students }: StudentListProps) {
                             const rate = total > 0 ? (presentCount / total) * 100 : 0;
 
                             return (
-                                <tr key={student.id}>
+                                <tr 
+                                    key={student.id} 
+                                    onClick={() => router.push(`/faculty/students/${student.id}`)}
+                                    style={{ cursor: 'pointer' }}
+                                    className={styles.rowHover}
+                                >
                                     <td>{student.name}</td>
                                     <td>{student.rollNo}</td>
                                     <td>{student.course} ({student.semester})</td>

@@ -32,7 +32,7 @@ export default function Sidebar({ role }: SidebarProps) {
     return (
         <aside className={styles.sidebar}>
             <div className={styles.logo}>
-                <h2>Smart<span className={styles.accent}>Presence</span></h2>
+                <img src="/logo.png" alt="SmartPresence" style={{ height: '40px', width: 'auto' }} />
             </div>
 
             <nav className={styles.nav}>

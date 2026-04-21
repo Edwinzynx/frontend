@@ -3,8 +3,8 @@ import clsx from 'clsx';
 import styles from './Card.module.css';
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-    title?: string;
-    description?: string;
+    title?: React.ReactNode;
+    description?: React.ReactNode;
     children: React.ReactNode;
 }
 

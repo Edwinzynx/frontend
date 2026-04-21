@@ -10,16 +10,16 @@
 
 .table th {
     padding: 0.75rem 1rem;
-    background-color: #f9fafb;
+    background-color: transparent;
     font-weight: 500;
-    color: #6b7280;
-    border-bottom: 1px solid #e5e7eb;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--card-border);
 }
 
 .table td {
     padding: 1rem;
-    border-bottom: 1px solid #e5e7eb;
-    color: #111827;
+    border-bottom: 1px solid var(--card-border);
+    color: var(--text-primary);
 }
 
 .table tr:last-child td {

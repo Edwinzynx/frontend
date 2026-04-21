@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
@@ -11,10 +11,29 @@ import styles from './auth.module.css';
 export default function Home() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    // Start fade out after 2.2 seconds
+    const fadeTimer = setTimeout(() => {
+      setIsFadingOut(true);
+    }, 2200);
+
+    // Completely unmount splash screen after the 1s CSS transition finishes
+    const removeTimer = setTimeout(() => {
+      setShowSplash(false);
+    }, 3200);
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(removeTimer);
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,10 +97,31 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.container}>
-      <Card
-        title="Welcome Back"
-        description="Sign in to your account to continue"
+    <>
+      {showSplash && (
+        <div className={`${styles.splashScreen} ${isFadingOut ? styles.fadeOut : ''}`}>
+          <img src="/logo.png" alt="SmartPresence" className={styles.splashLogo} />
+        </div>
+      )}
+      <div className={styles.container}>
+        <Card
+        title={
+          <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '40px' }}>
+            <img 
+              src="/icon.png" 
+              alt="SmartPresence Icon" 
+              style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', height: '32px', width: 'auto' }} 
+            />
+            <span style={{ textAlign: 'center', padding: '0 50px', whiteSpace: 'nowrap', fontSize: '1.05rem' }}>
+              Welcome Back to SmartPresence
+            </span>
+          </div>
+        }
+        description={
+          <div style={{ textAlign: 'center', width: '100%' }}>
+            Sign in to your account to continue
+          </div>
+        }
         className={styles.card}
       >
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -123,6 +163,7 @@ export default function Home() {
           </div>
         </form>
       </Card>
-    </div>
+      </div>
+    </>
   );
 }

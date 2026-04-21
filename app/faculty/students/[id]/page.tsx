@@ -2,11 +2,13 @@ import { prisma } from "@/lib/prisma"
 import ProfileCard from '@/components/student/ProfileCard';
 import AttendanceStats from '@/components/student/AttendanceStats';
 import { Card } from '@/components/ui/Card';
+import DeleteStudentButton from '@/components/faculty/DeleteStudentButton';
 import styles from './page.module.css';
 
-export default async function FacultyStudentDetailPage({ params }: { params: { id: string } }) {
+export default async function FacultyStudentDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
     const student = await prisma.student.findUnique({
-        where: { id: params.id },
+        where: { id: id },
         include: { attendance: true }
     });
 
@@ -41,6 +43,8 @@ export default async function FacultyStudentDetailPage({ params }: { params: { i
                     </div>
                 </div>
             </Card>
+
+            <DeleteStudentButton studentId={student.id} />
         </div>
     );
 }
