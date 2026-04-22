@@ -53,7 +53,11 @@ export default function RegisterPage() {
     return (
         <div className={`${styles.container} ${styles.fadeIn}`}>
             <Card
-                    title="Create Account"
+                    title={
+                        <div style={{ textAlign: 'center', width: '100%' }}>
+                            Create Account
+                        </div>
+                    }
                     description={
                         <div style={{ textAlign: 'center', width: '100%' }}>
                             Sign up for SmartPresence

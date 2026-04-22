@@ -93,6 +93,7 @@
 .splashLogo {
   max-width: 500px;
   width: 80%;
+  margin-bottom: 50px; /* Nudges the logo up slightly */
   animation: pulseAndFloat 2.5s infinite ease-in-out;
 }
 

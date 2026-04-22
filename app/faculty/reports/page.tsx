@@ -1,63 +1,86 @@
-"use client";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/auth";
+import { prisma } from "@/lib/prisma";
+import { redirect } from "next/navigation";
+import ReportsCharts from './ReportsCharts';
 
-import { Card } from '@/components/ui/Card';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
-import styles from './page.module.css';
+export default async function ReportsPage() {
+    const session = await getServerSession(authOptions);
 
-// Mock data for the charts
-const weeklyData = [
-    { name: 'Mon', present: 45, absent: 5 },
-    { name: 'Tue', present: 42, absent: 8 },
-    { name: 'Wed', present: 48, absent: 2 },
-    { name: 'Thu', present: 40, absent: 10 },
-    { name: 'Fri', present: 46, absent: 4 },
-];
+    if (!session || !session.user?.email) {
+        redirect("/login");
+    }
 
-const classPerformanceData = [
-    { range: '90-100%', count: 15 },
-    { range: '80-89%', count: 20 },
-    { range: '70-79%', count: 10 },
-    { range: '60-69%', count: 3 },
-    { range: '<60%', count: 2 },
-];
+    // 1. Calculate Weekly Data
+    const today = new Date();
+    const currentDay = today.getDay(); // 0 is Sunday, 1 is Monday
+    // Calculate start of week (Monday)
+    const diffToMonday = today.getDate() - currentDay + (currentDay === 0 ? -6 : 1); 
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(diffToMonday);
+    startOfWeek.setHours(0, 0, 0, 0);
 
-export default function ReportsPage() {
-    return (
-        <div className={styles.container}>
-            <Card title="Weekly Attendance Trend" description="Attendance counts for the current week">
-                <div className={styles.chartWrapper}>
-                    <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={weeklyData}>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                            <XAxis dataKey="name" />
-                            <YAxis />
-                            <Tooltip
-                                contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
-                                cursor={{ fill: '#f3f4f6' }}
-                            />
-                            <Bar dataKey="present" fill="#3b82f6" name="Present" radius={[4, 4, 0, 0]} />
-                            <Bar dataKey="absent" fill="#ef4444" name="Absent" radius={[4, 4, 0, 0]} />
-                        </BarChart>
-                    </ResponsiveContainer>
-                </div>
-            </Card>
+    const attendanceRecords = await prisma.attendance.findMany({
+        where: {
+            date: { gte: startOfWeek }
+        }
+    });
 
-            <Card title="Class Performance Distribution" description="Number of students by attendance percentage">
-                <div className={styles.chartWrapper}>
-                    <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={classPerformanceData}>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                            <XAxis dataKey="range" />
-                            <YAxis />
-                            <Tooltip
-                                contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
-                                cursor={{ fill: '#f3f4f6' }}
-                            />
-                            <Bar dataKey="count" fill="#10b981" name="Students" radius={[4, 4, 0, 0]} />
-                        </BarChart>
-                    </ResponsiveContainer>
-                </div>
-            </Card>
-        </div>
-    );
+    const weeklyDataTemplate = [
+        { name: 'Mon', present: 0, absent: 0 },
+        { name: 'Tue', present: 0, absent: 0 },
+        { name: 'Wed', present: 0, absent: 0 },
+        { name: 'Thu', present: 0, absent: 0 },
+        { name: 'Fri', present: 0, absent: 0 },
+    ];
+
+    attendanceRecords.forEach(record => {
+        const recordDay = record.date.getDay();
+        // 1 = Mon, 5 = Fri
+        if (recordDay >= 1 && recordDay <= 5) {
+            const index = recordDay - 1;
+            if (record.status === 'PRESENT' || record.status === 'LATE') {
+                weeklyDataTemplate[index].present += 1;
+            } else if (record.status === 'ABSENT') {
+                weeklyDataTemplate[index].absent += 1;
+            }
+        }
+    });
+
+    // 2. Calculate Class Performance Data
+    const allRecords = await prisma.attendance.findMany();
+    
+    // Group by studentId
+    const studentStats: Record<string, { total: number, present: number }> = {};
+    allRecords.forEach(record => {
+        if (!studentStats[record.studentId]) {
+            studentStats[record.studentId] = { total: 0, present: 0 };
+        }
+        studentStats[record.studentId].total += 1;
+        if (record.status === 'PRESENT' || record.status === 'LATE') {
+            studentStats[record.studentId].present += 1;
+        }
+    });
+
+    let range90 = 0, range80 = 0, range70 = 0, range60 = 0, rangeBelow60 = 0;
+
+    Object.values(studentStats).forEach(stat => {
+        if (stat.total === 0) return;
+        const percent = (stat.present / stat.total) * 100;
+        if (percent >= 90) range90++;
+        else if (percent >= 80) range80++;
+        else if (percent >= 70) range70++;
+        else if (percent >= 60) range60++;
+        else rangeBelow60++;
+    });
+
+    const classPerformanceData = [
+        { range: '90-100%', count: range90 },
+        { range: '80-89%', count: range80 },
+        { range: '70-79%', count: range70 },
+        { range: '60-69%', count: range60 },
+        { range: '<60%', count: rangeBelow60 },
+    ];
+
+    return <ReportsCharts weeklyData={weeklyDataTemplate} classPerformanceData={classPerformanceData} />;
 }
