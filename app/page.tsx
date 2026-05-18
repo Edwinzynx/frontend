@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { Card } from '@/components/ui/Card';
@@ -100,27 +101,29 @@ export default function Home() {
     <>
       {showSplash && (
         <div className={`${styles.splashScreen} ${isFadingOut ? styles.fadeOut : ''}`}>
-          <img src="/logo.png" alt="SmartPresence" className={styles.splashLogo} />
+          <Image src="/logo.png" alt="SmartPresence" width={200} height={60} className={styles.splashLogo} priority />
         </div>
       )}
       <div className={styles.container}>
         <Card
         title={
-          <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '40px' }}>
-            <img 
+          <span style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '40px' }}>
+            <Image 
               src="/icon.png" 
               alt="SmartPresence Icon" 
+              width={32}
+              height={32}
               style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', height: '32px', width: 'auto' }} 
             />
             <span style={{ textAlign: 'center', padding: '0 50px', whiteSpace: 'nowrap', fontSize: '1.05rem' }}>
               Welcome Back to SmartPresence
             </span>
-          </div>
+          </span>
         }
         description={
-          <div style={{ textAlign: 'center', width: '100%' }}>
+          <span style={{ display: 'block', textAlign: 'center', width: '100%' }}>
             Sign in to your account to continue
-          </div>
+          </span>
         }
         className={styles.card}
       >
@@ -159,6 +162,11 @@ export default function Home() {
             Don&apos;t have an account?{' '}
             <Link href="/register" className={styles.link}>
               Sign up
+            </Link>
+          </div>
+          <div className={styles.footer} style={{ marginTop: '0.5rem' }}>
+            <Link href="/about" className={styles.link} style={{ fontWeight: 500 }}>
+              Learn more about the project →
             </Link>
           </div>
         </form>

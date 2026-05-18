@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Upload, Users, FileText, User } from 'lucide-react';
 import { SignOutButton } from '@/components/ui/SignOutButton';
@@ -32,7 +33,7 @@ export default function Sidebar({ role }: SidebarProps) {
     return (
         <aside className={styles.sidebar}>
             <div className={styles.logo}>
-                <img src="/logo.png" alt="SmartPresence" style={{ height: '40px', width: 'auto' }} />
+                <Image src="/logo.png" alt="SmartPresence" width={200} height={40} style={{ height: '40px', width: 'auto' }} priority />
             </div>
 
             <nav className={styles.nav}>
