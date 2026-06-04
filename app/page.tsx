@@ -3,21 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import styles from './auth.module.css';
+import styles from './landing.module.css';
+import authStyles from './auth.module.css';
 
-export default function Home() {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+export default function LandingPage() {
   const [showSplash, setShowSplash] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
 
   useEffect(() => {
     // Start fade out after 2.2 seconds
@@ -36,141 +27,149 @@ export default function Home() {
     };
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const result = await signIn('credentials', {
-        redirect: false,
-        email: formData.email,
-        password: formData.password,
-      });
-
-      if (result?.error) {
-        alert('Invalid credentials'); // Simple alert for now
-        setIsLoading(false);
-      } else {
-        // Redirect based on role is handled by the middleware or we can fetch session here
-        // For now, let's just refresh or redirect to a default
-        // Ideally we check the session to know where to go, but since we don't have the session hook here yet (it's a client component but we need to wrap it)
-        // Let's just hardcode the redirect logic based on the email for now or fetch the session
-        // Actually, let's just reload and let the root page logic handle it if we had one, 
-        // BUT we are ON the root page.
-        // We need to know the role to redirect.
-        // Let's assume the user knows where to go or we fetch the session.
-
-        // Better approach:
-        // We can't easily get the session immediately after sign in without a page reload or using useSession hook.
-        // Let's just redirect to /student by default or check the email content as a fallback for the demo feel,
-        // OR we can rely on the fact that the session cookie is set.
-
-        // Let's try to fetch the session to get the role
-        // Since we are in a client component, we can't use `auth()`.
-        // We can use `window.location.href` to force a full reload which might be safest to get the session state.
-
-        // However, for a smoother experience:
-        // Let's just redirect to /student for now, and let the middleware/layout handle protection.
-        // Wait, the user wants role-based redirect.
-        // The previous logic was: if email includes 'faculty' -> /faculty.
-        // We should probably keep that heuristic OR fetch the real role.
-
-        // Let's use the previous heuristic for immediate feedback, but the real auth is happening.
-        // Actually, `signIn` returns a response.
-
-        router.refresh(); // Refresh to update session state
-        // We need to decide where to go.
-        // Let's just use the router.push based on the email for now as a quick fix, 
-        // but ideally we should get the user role from the session.
-        // Since we don't have a "get session" easily here without adding a provider...
-        // Let's just use the email check as a temporary UI redirect, the backend is secure.
-
-        if (formData.email.includes('faculty') || formData.email.includes('admin')) { // Simple check
-          router.push('/faculty');
-        } else {
-          router.push('/student');
-        }
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      setIsLoading(false);
-    }
-  };
-
   return (
     <>
       {showSplash && (
-        <div className={`${styles.splashScreen} ${isFadingOut ? styles.fadeOut : ''}`}>
-          <Image src="/logo.png" alt="SmartPresence" width={200} height={60} className={styles.splashLogo} priority />
+        <div className={`${authStyles.splashScreen} ${isFadingOut ? authStyles.fadeOut : ''}`}>
+          <Image src="/logo.png" alt="SmartPresence" width={200} height={60} className={authStyles.splashLogo} priority />
         </div>
       )}
+      
       <div className={styles.container}>
-        <Card
-        title={
-          <span style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '40px' }}>
-            <Image 
-              src="/icon.png" 
-              alt="SmartPresence Icon" 
-              width={32}
-              height={32}
-              style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', height: '32px', width: 'auto' }} 
-            />
-            <span style={{ textAlign: 'center', padding: '0 50px', whiteSpace: 'nowrap', fontSize: '1.05rem' }}>
-              Welcome Back to SmartPresence
-            </span>
-          </span>
-        }
-        description={
-          <span style={{ display: 'block', textAlign: 'center', width: '100%' }}>
-            Sign in to your account to continue
-          </span>
-        }
-        className={styles.card}
-      >
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.inputGroup}>
-            <label htmlFor="email" className={styles.label}>Email</label>
-            <input
-              id="email"
-              type="email"
-              placeholder="name@example.com"
-              className={styles.input}
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
-            />
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label htmlFor="password" className={styles.label}>Password</label>
-            <input
-              id="password"
-              type="password"
-              placeholder="••••••••"
-              className={styles.input}
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              required
-            />
-          </div>
-
-          <Button type="submit" isLoading={isLoading} className="w-full">
-            Sign In
-          </Button>
-
-          <div className={styles.footer}>
-            Don&apos;t have an account?{' '}
-            <Link href="/register" className={styles.link}>
-              Sign up
+        <div className={styles.backgroundGlow}></div>
+        
+        <div className={styles.contentWrapper}>
+          
+          {/* Navigation */}
+          <nav className={styles.navBar} style={{ justifyContent: 'flex-end' }}>
+            <Link href="/login" className={styles.backLink} style={{ backgroundColor: 'var(--primary)', color: '#fff', borderColor: 'var(--primary)' }}>
+              Continue to Login <span>→</span>
             </Link>
-          </div>
-          <div className={styles.footer} style={{ marginTop: '0.5rem' }}>
-            <Link href="/about" className={styles.link} style={{ fontWeight: 500 }}>
-              Learn more about the project →
-            </Link>
-          </div>
-        </form>
-      </Card>
+          </nav>
+
+          {/* Hero Section */}
+          <header className={styles.hero}>
+            <h1 className={styles.title}>SmartPresence</h1>
+            <p className={styles.subtitle}>
+              A state-of-the-art attendance management system powered by Computer Vision, 
+              designed to automate classroom attendance with a premium &quot;Dark Azure&quot; experience.
+            </p>
+          </header>
+
+          {/* Features Section */}
+          <section className={styles.section} style={{ animationDelay: '0.1s' }}>
+            <h2 className={styles.sectionTitle}>
+              <span>✨</span> Key Features
+            </h2>
+            <div className={styles.featuresGrid}>
+              <div className={styles.featureCard}>
+                <div className={styles.featureIcon}>📸</div>
+                <h3 className={styles.featureTitle}>Automated Attendance</h3>
+                <p className={styles.featureDesc}>
+                  Mark attendance seamlessly by uploading a classroom photo. Our advanced CV model detects and recognizes students instantly.
+                </p>
+              </div>
+              <div className={styles.featureCard}>
+                <div className={styles.featureIcon}>🔐</div>
+                <h3 className={styles.featureTitle}>Face ID Registration</h3>
+                <p className={styles.featureDesc}>
+                  Students can securely register their face data via selfies, generating robust embeddings stored in our cross-platform database.
+                </p>
+              </div>
+              <div className={styles.featureCard}>
+                <div className={styles.featureIcon}>📊</div>
+                <h3 className={styles.featureTitle}>Interactive Dashboards</h3>
+                <p className={styles.featureDesc}>
+                  Dedicated views for Faculty to manage classes and reports, and for Students to track personal attendance and performance metrics.
+                </p>
+              </div>
+              <div className={styles.featureCard}>
+                <div className={styles.featureIcon}>🎨</div>
+                <h3 className={styles.featureTitle}>Premium UI/UX</h3>
+                <p className={styles.featureDesc}>
+                  Built with a sleek, responsive &quot;Dark Azure&quot; theme featuring smooth animations, glassmorphism, and intuitive navigation.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Tech Stack Section */}
+          <section className={styles.section} style={{ animationDelay: '0.2s' }}>
+            <h2 className={styles.sectionTitle}>
+              <span>🛠️</span> Technology Stack
+            </h2>
+            <p className={styles.setupText}>
+              SmartPresence leverages a modern, decoupled architecture ensuring high performance, scalability, and maintainability.
+            </p>
+            <div className={styles.techGrid}>
+              <div className={styles.techItem}>
+                <span className={styles.techIcon}>⚛️</span>
+                <span className={styles.techName}>Next.js 16 (App Router)</span>
+              </div>
+              <div className={styles.techItem}>
+                <span className={styles.techIcon}>🎨</span>
+                <span className={styles.techName}>Vanilla CSS Variables</span>
+              </div>
+              <div className={styles.techItem}>
+                <span className={styles.techIcon}>🛡️</span>
+                <span className={styles.techName}>NextAuth.js</span>
+              </div>
+              <div className={styles.techItem}>
+                <span className={styles.techIcon}>🗄️</span>
+                <span className={styles.techName}>Prisma ORM</span>
+              </div>
+              <div className={styles.techItem}>
+                <span className={styles.techIcon}>🐍</span>
+                <span className={styles.techName}>FastAPI (Python)</span>
+              </div>
+              <div className={styles.techItem}>
+                <span className={styles.techIcon}>👁️</span>
+                <span className={styles.techName}>OpenCV &amp; YuNet</span>
+              </div>
+              <div className={styles.techItem}>
+                <span className={styles.techIcon}>🐘</span>
+                <span className={styles.techName}>PostgreSQL (Neon.tech)</span>
+              </div>
+              <div className={styles.techItem}>
+                <span className={styles.techIcon}>🐳</span>
+                <span className={styles.techName}>Docker</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Setup & Configuration Section */}
+          <section className={styles.section} style={{ animationDelay: '0.3s' }}>
+            <h2 className={styles.sectionTitle}>
+              <span>⚙️</span> Setup &amp; Configuration
+            </h2>
+            <p className={styles.setupText}>
+              Deploying SmartPresence requires configuring specific environment variables for both the frontend and backend services.
+            </p>
+            
+            <div className={styles.codeBlock}>
+              <span className={styles.codeComment}># Backend (.env)</span><br/>
+              <span className={styles.codeVar}>DATABASE_URL</span>=<span className={styles.codeVal}>&quot;postgresql://user:pass@ep-restless-bird-1234.neon.tech/neondb&quot;</span><br/>
+              <br/>
+              <span className={styles.codeComment}># Frontend (.env)</span><br/>
+              <span className={styles.codeVar}>DATABASE_URL</span>=<span className={styles.codeVal}>&quot;postgresql://user:pass@ep-restless-bird-1234.neon.tech/neondb&quot;</span><br/>
+              <span className={styles.codeVar}>NEXTAUTH_SECRET</span>=<span className={styles.codeVal}>&quot;your-super-secret-string-here&quot;</span><br/>
+              <span className={styles.codeVar}>NEXT_PUBLIC_CV_BACKEND_URL</span>=<span className={styles.codeVal}>&quot;https://smartpresence-cv.onrender.com&quot;</span><br/>
+            </div>
+          </section>
+          
+          {/* Deployment Section */}
+          <section className={styles.section} style={{ animationDelay: '0.4s', marginBottom: '4rem' }}>
+            <h2 className={styles.sectionTitle}>
+              <span>🚀</span> Deployment Architecture
+            </h2>
+            <p className={styles.setupText}>
+              The system is designed for cloud-native deployment. The Next.js frontend is deployed edge-first on <strong>Vercel</strong> for optimal latency. 
+              The computationally intensive Computer Vision backend runs in a containerized environment on <strong>Render</strong>. 
+              All relational and embedding data is securely persisted in a serverless <strong>Neon.tech</strong> PostgreSQL database.
+            </p>
+          </section>
+
+        </div>
       </div>
     </>
   );
